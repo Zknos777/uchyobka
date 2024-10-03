@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>PROMISE 1</p>
+    <p>PROMISE 2</p>
+    <p>PROMISE 3</p>
+
+    <label> Status </label>
+    <button id="loadHTML"> LOAD FUCKING SUKA BLYAT HANUY HTML!!!11</button>
+    <script>
+        var pArray = document.getElementsByTagName("p");
+        var p1 = pArray[0];
+        var p2 = pArray[1];
+        var p3 = pArray[2];
+        var statusText = document.getElementsByTagName("label")[0];
+        console.log(statusText.textContent)
+
+
+
+        function promise1() {
+            return new Promise(
+                (resolve, reject) => {
+                    let status = Math.round(Math.random());
+                    let t = Math.round(Math.random() * 5000);
+
+
+                    setTimeout(
+                        () => {
+                            status ?
+                                resolve("resolve promise 1!") :
+                                reject("reject  promise 1");
+                        },
+                        1000
+                    )
+                }
+            )
+        }
+
+
+        function promise2() {
+            return new Promise(
+                (resolve, reject) => {
+                    let status = Math.round(Math.random());
+                    let t = Math.round(Math.random() * 5000);
+
+
+                    setTimeout(
+                        () => {
+                            status ?
+                                resolve("resolve  promise 2!") :
+                                reject("reject  promise 2");
+                        },
+                        1000
+                    )
+                }
+            )
+        }
+
+        function promise3() {
+            return new Promise(
+                (resolve, reject) => {
+                    let status = Math.round(Math.random());
+                    let t = Math.round(Math.random() * 5000);
+
+
+                    setTimeout(
+                        () => {
+                            status ?
+                                resolve("resolve  promise 3!") :
+                                reject("reject  promise 3");
+                        },
+                        1000
+                    )
+                }
+            )
+        }
+
+        promise1().then(
+            (value) => {
+                console.log(value)
+                p1.style.backgroundColor = "lightgreen";
+                return promise2();
+            },
+            (error) => {
+                console.log(error)
+                p1.style.backgroundColor = "red";
+                throw new Error("Critical error")
+                //return promise2();
+            }
+        ).then(
+            (value) => {
+                console.log(value)
+                p2.style.backgroundColor = "lightgreen";
+                return promise3();
+            },
+            (error) => {
+                console.log(error)
+                p2.style.backgroundColor = "red";
+                throw new Error("Critical error")
+                //return promise3();
+            }
+        ).then(
+            (value) => {
+                console.log(value)
+                p3.style.backgroundColor = "lightgreen";
+                 loadHTML();
+            },
+            (error) => {
+                console.log(error)
+                p3.style.backgroundColor = "red";
+                throw new Error("Critical error")
+                //p3.style.backgroundColor = "red";
+            }
+        ).catch(
+            (error) => {
+                console.log(error);
+
+            }
+        )
+        
+        function loadHTML() {
+            fetch("page1.html")
+                .then(
+                    (response) => {
+                        if(!response.ok) {
+                            throw new Error("Network response not ok!" + response.status)
+                        }
+                        return response.text();
+
+                    }).then(
+                    (htmlContent) => {
+                        statusText.innerHTML = htmlContent;
+                    }
+                )
+
+        }
+
+document.getElementById("loadHTML").addEventListener("click",
+    ()=>{
+    loadHTML();
+})
+    
+    </script>
+</body></html>
