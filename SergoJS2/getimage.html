@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <img alt="Chair picture" id="image">
+    <script>
+        async function fetchImage() {
+            try {
+                const imageURL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/800px-Unofficial_JavaScript_logo_2.svg.png';
+                const responce = await fetch(imageURL);
+
+                if (!responce.ok) {
+                    throw new Error(`HTTP Error: ${responce.status} bro :( `);
+
+
+                }
+                // else {console.log("ok")}
+
+                console.log(responce);
+
+                document.getElementById("image").src = responce.url;
+                document.getElementById("image").width = 100;
+            } catch (error) {
+                console.log("Error:", error);
+            }
+
+        }
+        fetchImage();
+    </script>
+</body></html>
