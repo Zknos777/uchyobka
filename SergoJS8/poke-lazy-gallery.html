@@ -5,13 +5,19 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="poke-lazy-gallery.css">
+    <link rel="stylesheet" href="loading-icon/loading-icon.css">
 </head>
 
 <body>
-    <div id="gallery">
+    <div id="gallery"></div>
+
+    <div id="loading-icon">
+        <div class="spinner"></div>
     </div>
     <script>
         const gallery = document.getElementById("gallery");
+        const loadingIcon = document.getElementById("loading-icon");
+
         var currentId = 1;
         var isLoading = false;
 
@@ -28,16 +34,16 @@
 
 
         async function loadPokemon() {
-            
-            if(isLoading) return;
-            
+            if (isLoading) return;
             isLoading = true;
-            
+            loadingIcon.style.display = "";
+
+
             const pokemon = await fetchPokemon(currentId);
 
             const pokemonContainer = document.createElement("div");
             pokemonContainer.className = "pokemon-container";
-            gallery.appendChild(pokemonContainer);
+
 
 
             const pokemonImage = document.createElement("img");
@@ -52,7 +58,22 @@
             pokemonText.innerHTML = `<p><strong>${pokemon.name}</strong> (ID: ${pokemon.id})</p>`;
             currentId++;
             isLoading = false;
+
+            return new Promise(
+                (resolve) => {
+                    pokemonImage.addEventListener("load",
+                        () => {
+                            gallery.appendChild(pokemonContainer);
+                            loadingIcon.style.display = "none";
+                            resolve();
+
+                        }
+                    )
+                }
+            )
+
         }
+
 
         async function loadPackPokemon(count) {
 
@@ -63,21 +84,18 @@
 
         }
         loadPackPokemon(7);
-        window.addEventListener("scroll",
-            () => {
-                console.log("SCROLL!");
-                console.log("window.innerHeight", window.innerHeight);
-                console.log("windows.scrollY", window.scrollY);
-                console.log("document.offsetHeight", document.body.offsetHeight)
-                if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500){
-                    loadPokemon();
-                }
 
+        function checkLoadCondition() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+                loadPokemon()
             }
-        )
 
+        }
+
+
+
+        window.addEventListener("wheel", checkLoadCondition);
+        window.addEventListener("scroll", checkLoadCondition);
     </script>
 
-</body>
-
-</html>
+</body></html>

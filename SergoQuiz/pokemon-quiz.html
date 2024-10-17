@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pokemon Quiz</title>
+    <style>
+        .silhouette {
+            width: 200px;
+            height: auto;
+            filter: brightness();
+        }
+    </style>
+</head>
+
+<body>
+    <img id="pokemon-img" class="silhouette">
+    <div id="hint"></div>
+    <input type="text" id="guess">
+    <button id="submit"> SUBMIT </button>
+
+    <div id="result"></div>
+
+    <script>
+        const pokemonImg = document.getElementById("pokemon-img");
+        const hint = document.getElementById("hint");
+        const submit = document.getElementById("submit");
+        let correctName = "";
+        let hintArray = [];
+        let attemps = 0;
+
+        async function fetchRandomPokemon() {
+            const randomId = Math.floor(Math.random() * 100) + 1;
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomId}`);
+            const data = await response.json();
+
+            pokemonImg.src = data.sprites.front_default;
+            correctName = data.name;
+            console.log(correctName);
+            initializeHint(correctName);
+            revealLetters(2);
+        }
+
+        function initializeHint(name) {
+            hintArray = name.split('').map(() => "_");
+            console.log(hintArray);
+        }
+
+        function revealLetters(count) {
+            let revealed = 0;
+            while (revealed < count && hintArray.includes("_")) {
+                const randIndex = Math.floor(Math.random() * correctName.length);
+                if (hintArray[randIndex] == "_") {
+                    hintArray[randIndex] = correctName[randIndex];
+                    revealed++;
+                }
+
+            }
+            hint.textContent = hintArray.join(" ");
+        }
+
+        submit.addEventListener("click",
+            () => {
+                const userGuess = document.getElementById("guess").value.trim().toLowerCase();
+                const resultDiv = document.getElementById("result");
+                if (userGuess === correctName) {
+                    resultDiv.textContent = "Верно!";
+                    resultDiv.style.color = "green";
+                } else {
+                    resultDiv.textContent = "Неверно!";
+                    resultDiv.style.color = "red";
+                    
+                    revealLetters(1);
+                }
+            }
+        )
+
+        fetchRandomPokemon();
+    </script>
+</body></html>
