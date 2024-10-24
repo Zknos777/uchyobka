@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -7,21 +8,35 @@
 
 <body>
     <div id="result"></div>
-    <a href="form-reg-1.html"></a>
+    <a href="form-reg-4.html">Back </a>
+
     <script>
-        const resultDiv = document.getElementById('result');
-        console.log(window.location.search);
-        const searchParams = new URLSearchParams(window.location.search);
+        console.log(localStorage["userData"]);
 
-        console.log(Object.fromEntries(searchParams.entries()));
+        const storedData = localStorage.getItem('userData');
+        const dataDiv = document.getElementById("result");
 
-        searchParams.forEach(
-            (value, name) => {
-                const newP = document.createElement('p');
-                newP.textContent = `${name}: ${value}`;
-                resultDiv.appendChild(newP);
+        if (storedData) {
+            const userData = JSON.parse(storedData);
+            console.log(userData);
+            for (let key in userData) {
+                console.log(key, userData[key])
+                const p = document.createElement('p');
+                if (key === 'pfp' && typeof userData[key] === "object") {
+                    p.textContent = `File: ${userData[key].name} (${userData[key].size}, ${userData[key].type})`;
+                    
+                    const img = document.createElement("img");
+                    img.src = userData[key].data;
+                    img.alt = userData[key].name;
+                    img.style.width = "200px";
+                    dataDiv.appendChild(img);
+                } else {
+                    p.textContent = `${key}: ${userData[key]}`;
+
+
+                }
+                dataDiv.append(p);
             }
-
-        )
+        }
     </script>
 </body></html>

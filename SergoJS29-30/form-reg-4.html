@@ -11,15 +11,17 @@
 
     <form id="regForm" method="POST" action="form-reg-4-result.html">
         <label for="name">Name: </label>
-        <input type="text" id="name" name="name" placeholder="username" required>
-        <br><br>
+        <input type="text" id="name" name="name" placeholder="username">
+        <p id="errorName"></p>
+        <br>
 
         <label for="Password">Password: </label>
-        <input type="password" id="Password" name="Password" placeholder="Password" required>
+        <input type="password" id="Password" name="Password" placeholder="Password">
         <br><br>
 
         <label for="email">E-mail: </label>
-        <input type="email" id="email" name="email" placeholder="email" required>
+        <input type="email" id="email" name="email" placeholder="email">
+        <p id="errorEmail"></p>
         <br><br>
 
         <label for="birthday">Birthday: </label>
@@ -35,6 +37,55 @@
 
     <script>
         const form = document.getElementById('regForm');
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const errorEmail = document.getElementById("errorEmail");
+
+
+        function validateName(name) {
+            const regex = /^[a-zA-Z]+[0-9]+$/
+            const isValid = regex.test(name);
+            if (isValid) {
+                //const errorName = document.getElementById("errorName")
+                errorName.textContent = "Username is correct!";
+                errorName.style.color = 'green';
+            } else {
+                errorName.textContent = "Username is not correct!";
+                errorName.style.color = "red";
+
+            }
+        }
+
+
+        function validateEmail(email) {
+            const regex = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            const isValid = regex.test(email);
+            if (isValid) {
+               // const emailError = document.getElementById("errorEmail")
+                errorEmail.textContent = "Email is correct!";
+                errorEmail.style.color = 'green';
+            } else {
+                errorEmail.textContent = "Email is not correct!";
+                errorEmail.style.color = "red";
+
+            }
+        }
+
+
+        name.addEventListener("input",
+            () => {
+                validateName(name.value);
+            }
+        )
+
+        email.addEventListener("input",
+            () => {
+                validateEmail(email.value);
+            }
+        )
+
+
+
 
         form.addEventListener('submit',
             (event) => {
@@ -43,9 +94,36 @@
                 const formData = new FormData(form);
                 for (let [key, value] of formData.entries()) {
                     console.log(key, value);
-                    userData[key] = value;
+                    if (key === 'pfp' && value instanceof File) {
+                        const reader = new FileReader();
+
+                        reader.readAsDataURL(value);
+
+                        reader.addEventListener('load',
+                            (event) => {
+                                console.log(event.target.result);
+                                userData[key] = {
+                                    name: value.name,
+                                    type: value.type,
+                                    size: value.size,
+                                    data: event.target.result
+                                };
+                                localStorage.setItem("userData", JSON.stringify(userData));
+                                window.location = "form-reg-4-result.html";
+
+                            }
+                        )
+
+                        userData[key] = {
+                            name: value.name,
+                            type: value.type,
+                            size: value.size
+                        };
+                    } else {
+                        userData[key] = value;
+                    }
                 }
-                localStorage.setItem("userData", JSON.stringify(userData));
+
 
             }
 
