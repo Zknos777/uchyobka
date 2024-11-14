@@ -1,0 +1,42 @@
+.image-button-stone { 
+    background-image: url('images.png'); /* Replace with your image path */ 
+    background-size: 300%; /* Cover the entire button */ 
+    background-position: 100% 21%;
+    overflow: hidden;
+    width: 110px; /* Set a width for the button */ 
+    height: 100px; /* Set a height for the button */ 
+    border-radius: 5px; /* Optional: rounded corners */ 
+    transition: background-color 0.3s; /* Smooth transition for hover effect */ 
+    cursor: pointer; /* Change cursor to pointer */ 
+} 
+ 
+.image-button-sciccors { 
+    background-image: url('images.png'); /* Replace with your image path */ 
+    background-size: 195%; /* Cover the entire button */ 
+    background-position: 0 0;
+    overflow: hidden;
+    width: 150px; /* Set a width for the button */ 
+    height: 100px; /* Set a height for the button */ 
+    border-radius: 5px; /* Optional: rounded corners */ 
+    transition: background-color 0.3s; /* Smooth transition for hover effect */ 
+    cursor: pointer; /* Change cursor to pointer */ 
+} 
+
+
+.image-button-paper { 
+    background-image: url('images.png'); /* Replace with your image path */ 
+    background-size: 160%; /* Cover the entire button */ 
+    background-position: 20% 100%;
+    overflow: hidden;
+    font-size: 16px; /* Font size */ 
+    cursor: pointer; /* Change cursor to pointer */ 
+    width: 150px; /* Set a width for the button */ 
+    height: 100px; /* Set a height for the button */ 
+    border-radius: 5px; /* Optional: rounded corners */ 
+    transition: background-color 0.3s; /* Smooth transition for hover effect */ 
+
+} 
+
+.image-button:hover { 
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: darken button on hover */ 
+} 

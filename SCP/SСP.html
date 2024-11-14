@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SCP Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <script>
+        function play(userChoise) {
+            var rand = [0, 1, 2]
+            const randomElement = rand[Math.floor(Math.random() * rand.length)];
+            console.log(randomElement);
+
+            var result = document.createElement("div");
+            result.textContent = `UserChoise: ${userChoise}, computerChoise: ${randomElement}. Pobeda ch'ya?`
+            gamePole = document.getElementById("gamePole");
+            gamePole.append(result);
+        }
+
+
+        var btn1 = document.getElementsByClassName("image-button-stone")[0];
+        console.log(btn1);
+        btn1.addEventListener("click", () => play("stone"));
+
+        /*
+                document.getElementsByClassName("image-button-sciccors")[0].addEventListener("click", play(sciccors));
+
+                document.getElementsByClassName("image-button-paper")[0].addEventListener("click", play("paper"));
+            */
+    </script>
+
+    <div id="gamePole">
+        <button class="image-button-stone"> </button>
+        <button class="image-button-sciccors"></button>
+        <button class="image-button-paper"></button>
+
+    </div>
+
+</body></html>

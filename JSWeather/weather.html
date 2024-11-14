@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+   <!-- 2. Приложение «Погода»: получение и отображение данных о погоде с помощью внешнего API. -->
+   <script>
+    baseUrl = "http://api.weatherapi.com/v1/current.json"
+    apiKey = "18728bb178934dd5923153618241411"
+    
+    async function getWeather() {
+        query = document.getElementById("query").value;
+        responce = await fetch(`${baseUrl}?key=${apiKey}&q=${query}`);
+        var resp = await responce.json();
+        var newBlock = document.createElement("div");
+        newBlock.textContent = `Текущая погоде в город ${query}: ${resp.current.temp_c} градусов цельсия`;
+        var mainBlock = document.getElementById("mainBlock");
+        mainBlock.append(newBlock);
+        
+    }
+    </script>
+   <div id="mainBlock">
+       <input type="text" placeholder="Введите город" id="query">
+       <button id="getWeather" onclick="getWeather()">Узнать погоду</button>
+   </div>
+   
+</body>
+</html>
