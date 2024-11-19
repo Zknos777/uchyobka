@@ -1,0 +1,35 @@
+body {
+    background-color: chocolate;
+   
+}
+
+#counter {
+    text-align: center;
+    font-family: fantasy;
+    font-size: 26pt;   
+}
+
+#mainContainer {
+    gap: 5px;
+     height: 40vh;
+    align-content: bottom;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.block1 {
+    background-image: url("hole.jpg");
+    display: flex;
+    width: 100%;
+    background-position: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    background-size: cover;
+}

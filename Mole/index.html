@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <title>Game: Hit the Mole</title>
+</head>
+
+<body>
+    <div id="counter">Счёт: 0</div>
+    <div id="mainContainer">
+        <div class="block1"></div>
+        <div class="block1"></div>
+        <div class="block1"></div>
+
+        <div class="block1"></div>
+        <div class="block1"></div>
+        <div class="block1"></div>
+
+        <div class="block1"></div>
+        <div class="block1"></div>
+        <div class="block1"></div>
+    </div>
+    <script>
+        function hitTheMole() {
+            const blocks = document.getElementsByClassName("block1");
+            const rnd = Math.floor(Math.random() * 9);
+            
+            const counter = document.getElementById("counter");
+            //counter.innerText = 123;
+
+            console.log(blocks[rnd]);
+            
+            blocks[rnd].style.backgroundImage = "url('mole.jpg')";
+            blocks[rnd].addEventListener("mouseover", () => {counter.innerText = 123});
+            
+        }
+        
+        
+        hitTheMole();
+        console.log(123);
+    </script>
+</body></html>
