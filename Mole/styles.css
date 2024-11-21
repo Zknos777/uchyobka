@@ -1,20 +1,25 @@
 body {
     background-color: chocolate;
-   
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+
 }
 
 #counter {
     text-align: center;
     font-family: fantasy;
-    font-size: 26pt;   
+    font-size: 26pt;
 }
 
 #mainContainer {
     gap: 5px;
-     height: 40vh;
+//    height: 100vh;
     align-content: bottom;
     text-align: center;
     display: grid;
+  
     grid-template-columns: repeat(3, 1fr);
     width: 100%;
     text-align: center;
@@ -23,13 +28,22 @@ body {
 }
 
 .block1 {
-    background-image: url("hole.jpg");
+    background-image: url("hole.png");
     display: flex;
     width: 100%;
     background-position: center;
     text-align: center;
     justify-content: center;
     align-items: center;
-    height: 30vh;
+    height: 25vh;
     background-size: cover;
+}
+
+#record {
+    
+    text-align: center;
+    font-family: fantasy;
+    font-size: 26pt;
+ 
+    
 }

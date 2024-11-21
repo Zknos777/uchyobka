@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div id="counter">Счёт: 0</div>
+    <div id="counter">Счёт: 10</div>
     <div id="mainContainer">
         <div class="block1"></div>
         <div class="block1"></div>
@@ -21,24 +21,68 @@
         <div class="block1"></div>
         <div class="block1"></div>
         <div class="block1"></div>
-    </div>
-    <script>
-        function hitTheMole() {
-            const blocks = document.getElementsByClassName("block1");
-            const rnd = Math.floor(Math.random() * 9);
-            
-            const counter = document.getElementById("counter");
-            //counter.innerText = 123;
 
-            console.log(blocks[rnd]);
-            
-            blocks[rnd].style.backgroundImage = "url('mole.jpg')";
-            blocks[rnd].addEventListener("mouseover", () => {counter.innerText = 123});
-            
+    </div>
+    <div id="record">0000001</div>
+
+
+
+    <script>
+        var recordDiv = document.getElementById("record");
+        var recordValue = localStorage.getItem("recordValue");
+        console.log(recordValue);
+        if (recordValue === null) {
+            localStorage.setItem("recordValue", 0);
+            recordDiv.innerText = "Рекорд: 0";
         }
-        
-        
-        hitTheMole();
-        console.log(123);
+        recordValue = localStorage.getItem("recordValue");
+        recordDiv.innerText = "Рекорд: " + recordValue;
+
+        function hitTheMole() {
+            var recordDiv = document.getElementById("record");
+            var recordValue = localStorage.getItem("recordValue");
+            var blocks = document.getElementsByClassName("block1");
+            var counter = document.getElementById("counter");
+            var counterInt = counter.innerText.split(': ');
+            if (parseInt(counterInt[1]) == 0) {
+                    clearInterval(funcTimer);
+                }
+                for (i = 0; i < 9; i++) {
+                    if (blocks[i].style.backgroundImage === 'url("mole.png")') {
+                        if (parseInt(counterInt[1]) > 0) {
+                            counter.innerText = "Счёт: " + (parseInt(counterInt[1]) - 1);
+                        }
+
+                    }
+                    console.log(blocks[i].style.backgroundImage);
+                    blocks[i].style.backgroundImage = "url('hole.png')";
+                }
+                const rnd = Math.floor(Math.random() * 9);
+
+
+
+
+                blocks[rnd].style.backgroundImage = "url('mole.png')"; blocks[rnd].addEventListener("click", () => {
+                    counter.innerText = "Счёт: " + (parseInt(counterInt[1]) + 1);
+                    blocks[rnd].style.backgroundImage = "url('hole.png')";
+                });
+
+                if (recordValue < parseInt(counterInt[1])) {
+                    localStorage.setItem("recordValue", (parseInt(recordValue) + 1));
+                    recordDiv.innerText = "Рекорд: " + (parseInt(recordValue) + 1);
+                    console.log("suda1")
+                }
+
+                if (recordValue === null) {
+                    localStorage.setItem("recordValue", 0);
+                    recordDiv.innerText = "Рекорд: 0";
+                    console.log("suda2")
+                }
+
+            }
+            const funcTimer = setInterval(hitTheMole, 1000);
+
     </script>
-</body></html>
+</body>
+
+</html>
